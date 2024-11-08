@@ -22,4 +22,5 @@ then
 fi
 echo -e "${green}Git pre-commit hook was successful!${no_color}\n"
 
+npm run test:changed
 npx lint-staged
