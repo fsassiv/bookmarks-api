@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { MongoDBModule } from './mongodb/mongodb.module';
 import { UserModule } from './user/user.module';
@@ -13,7 +11,7 @@ import { UserModule } from './user/user.module';
     UserModule,
     HealthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
