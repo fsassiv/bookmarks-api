@@ -1,5 +1,3 @@
-// src/health/health.controller.ts
-
 import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { HealthService } from './health.service';
