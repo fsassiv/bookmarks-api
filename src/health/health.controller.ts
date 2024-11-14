@@ -9,6 +9,7 @@ export class HealthController {
   @Get()
   async checkHealth(@Res() res: Response) {
     const isDbConnected = await this.healthService.checkDatabaseConnection();
+
     if (isDbConnected) {
       return res
         .status(HttpStatus.OK)
