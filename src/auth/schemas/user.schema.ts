@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Model } from 'mongoose';
-import { validationMessages } from './utils';
+import { validationMessages } from '../auth.util';
 
 export type UserDocument = User & Document;
 
@@ -24,7 +24,5 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
-export type IUserModel = Model<UserDocument>;
 
 export const UserModel = Model<UserDocument>;

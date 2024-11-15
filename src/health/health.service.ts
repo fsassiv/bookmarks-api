@@ -1,18 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { IUserModel, User } from '../user/schemas/user.schema';
+import { Model } from 'mongoose';
+import { apiHandleRequest } from 'src/utils';
+import { User, UserDocument } from '../auth/schemas/user.schema';
 
 @Injectable()
 export class HealthService {
-  constructor(@InjectModel(User.name) private userModel: IUserModel) {}
+  constructor(@InjectModel(User.name) private UserModel: Model<UserDocument>) {}
 
   async checkDatabaseConnection(): Promise<boolean> {
-    try {
-      await this.userModel.findOne();
-      return true;
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    const [error] = await apiHandleRequest(this.UserModel.findOne());
+
+    if (error) {
       return false;
     }
+
+    return true;
   }
 }
