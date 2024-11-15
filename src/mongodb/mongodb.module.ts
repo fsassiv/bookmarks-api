@@ -18,6 +18,8 @@ export class MongoDBModule {
   private readonly logger = new Logger(MongoDBModule.name);
 
   constructor() {
+    // mongoose.set('debug', true);
+
     mongoose.connection.on('connected', () => {
       this.logger.log('Connected to MongoDB');
     });

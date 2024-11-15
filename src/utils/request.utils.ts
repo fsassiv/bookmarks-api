@@ -1,4 +1,4 @@
-export const handleRequest = <T>(
+export const apiHandleRequest = <T>(
   promise: Promise<T>,
 ): Promise<[undefined, T] | [Error]> =>
   promise

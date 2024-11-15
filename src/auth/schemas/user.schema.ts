@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Model } from 'mongoose';
-import { emailValidator, validationMessages } from './utils';
+import { validationMessages } from '../auth.util';
 
 export type UserDocument = User & Document;
 
@@ -12,16 +12,17 @@ export class User {
   @Prop({
     required: true,
     unique: true,
-    validate: {
-      validator: emailValidator,
-      message: validationMessages.emailAlreadyExists,
-    },
+    match: [/.+@.+\..+/, validationMessages.askForValidEmail],
   })
   email: string;
+
+  @Prop()
+  avatar: string;
+
+  @Prop({ required: true })
+  hash: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
-export type IUserModel = Model<UserDocument>;
 
 export const UserModel = Model<UserDocument>;

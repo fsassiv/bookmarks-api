@@ -1,17 +1,17 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  async createUser(@Body('name') name: string, @Body('email') email: string) {
-    return this.userService.createUser(name, email);
-  }
-
+  @UseGuards(AuthGuard)
   @Get()
-  async findAllUsers() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async findAllUsers(@Req() request: Request) {
+    // console.log(request);
     return this.userService.findAllUsers();
   }
 }
