@@ -81,7 +81,7 @@ export class AuthService {
 
   async refreshToken(refreshToken: string) {
     const [error, data] = await apiHandleRequest(
-      this.RefreshTokenModel.findOneAndDelete({
+      this.RefreshTokenModel.findOne({
         refreshToken,
         expiryDate: { $gte: new Date() },
       }),
@@ -98,16 +98,15 @@ export class AuthService {
     return this.generateJwtToken(data.userId.toString());
   }
 
-  async storeRefreshToken(token: string, userId: string) {
+  async storeRefreshToken(refreshToken: string, userId: string) {
     const expiryDate = new Date().setDate(new Date().getDate() + 3);
 
-    // make sure there's only one token stored
-    await this.RefreshTokenModel.findOneAndDelete({ userId });
-
-    await this.RefreshTokenModel.create({
-      refreshToken: token,
-      userId,
-      expiryDate,
-    });
+    await this.RefreshTokenModel.updateOne(
+      { userId },
+      { $set: { expiryDate, refreshToken } },
+      {
+        upsert: true,
+      },
+    );
   }
 }

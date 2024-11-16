@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
 
       request.userId = payload.id;
     } catch (error) {
-      Logger.error(error.message);
+      Logger.error('api-log: ' + error.message);
       throw new UnauthorizedException('Invalid credentials');
     }
 
